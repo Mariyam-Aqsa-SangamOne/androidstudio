@@ -217,14 +217,14 @@ Android applications cannot access the internet unless this permission is declar
 Gradle Scripts, build.gradle.kts (Module:app)
 
 Add:
-
+```kotlin
 implementation("com.squareup.retrofit2:retrofit:2.11.0")
 implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
-
+```
 Click Sync Now.                                      
                                                            
-## Step 21: Step 13: Understanding the Dependencies
+## Step 21: Understanding the Dependencies
 Retrofit
 Used for making HTTP requests.
 
@@ -259,7 +259,7 @@ These packages separate different responsibilities of the application.
 
 Right-click the package name.
 
-New → Package
+New, Package
 
 Create:
 model
