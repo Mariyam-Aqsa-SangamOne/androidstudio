@@ -1022,6 +1022,6 @@ com.sangamone.triviaapp
 
 ```                                                          
 ## Authors
-- Masseeha - GitHub: [@masseeha](https://github.com/masseeha-sangamone)
+- Masseeha - GitHub: [@masseeha-sangamone](https://github.com/masseeha-sangamone)
 - Kishan Dharan - GitHub: [@Kishandharan](https://github.com/Kishandharan)
 - Mariyam Aqsa Rafiq - GitHub: [@Mariyam-Aqsa-SangamOne](https://github.com/Mariyam-Aqsa-SangamOne)
