@@ -11,7 +11,11 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import com.sangamone.triviaapp.utils.decodeHtml
 
 @Composable
 fun MainScreen(TriviaViewModel: TriviaViewModel){
@@ -26,7 +30,10 @@ fun MainScreen(TriviaViewModel: TriviaViewModel){
     ){
         Text(
             "Trivia Quiz List",
-            style =  MaterialTheme.typography.headlineMedium
+            style =  MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -51,14 +58,20 @@ fun MainScreen(TriviaViewModel: TriviaViewModel){
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp)
+                            .padding(8.dp),
+                        elevation = CardDefaults.cardElevation(6.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor =Color(0xFFE3F2FD)
+
+                        )
                     ){
                         Column(
                             modifier = Modifier.padding(16.dp)
                         ){
-                            Text(text = "Question: ${display.question}")
+                            Text(text = "Question: ${display.question.decodeHtml()}",
+                                style = MaterialTheme.typography.titleMedium)
                             Text(text = "Correct Answer: ${display.correct_answer}")
-                            Text(text = "Incorrect Answer: ${display.incorrect_answers.joinToString()}")
                         }
                     }
 
