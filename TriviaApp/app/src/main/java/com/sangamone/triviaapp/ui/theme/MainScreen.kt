@@ -11,11 +11,14 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.LaunchedEffect
 
 @Composable
 fun MainScreen(TriviaViewModel: TriviaViewModel){
     val uiState by TriviaViewModel.uistate.collectAsState()
-    var searchText by remember { mutableStateOf("")}
+    LaunchedEffect(Unit) {
+        TriviaViewModel.triviaList()
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -26,21 +29,6 @@ fun MainScreen(TriviaViewModel: TriviaViewModel){
             style =  MaterialTheme.typography.headlineMedium
         )
         Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = searchText,
-            onValueChange = { searchText = it},
-            label = { Text("Display the list")},
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(onClick = {TriviaViewModel.triviaList(searchText)}){
-            Text("Display")
-        }
-
-        Spacer(modifier = Modifier.height(40.dp))
 
         Column(
             modifier = Modifier.fillMaxWidth(),
