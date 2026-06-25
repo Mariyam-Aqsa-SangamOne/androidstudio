@@ -888,9 +888,10 @@ Linux was created by Linus Torvalds.
 
 Some API questions contain HTML entities.
 Examples:
+```text
 &#039;
 &quot;
-
+```
 These should not be shown directly to users.
 To solve this problem create:
 
@@ -908,9 +909,10 @@ fun String.decodeHtml(): String
 
 Converts encoded HTML entities into normal characters.
 Examples:
+```text
 &#039; → '
 &quot; → "
-
+```
 ## Step 58: Display Decoded Questions
 
 In MainScreen.kt,
@@ -926,7 +928,9 @@ display.question.decodeHtml()
 Ensures questions appear correctly.
 Example:
 Before:
+```text 
 Linux&#039; creator
+```
 After:
 Linux' creator
 
@@ -991,6 +995,8 @@ setContent {
 ```
 
 ## Final Project Structure
+
+```text
 com.sangamone.triviaapp
 │
 ├── data
@@ -1013,7 +1019,8 @@ com.sangamone.triviaapp
 │   └── UIState.kt
 │
 └── MainActivity.kt
-                                                                 
+
+```                                                          
 ## Authors
 - Masseeha - GitHub: [@masseeha](https://github.com/masseeha-sangamone)
 - Kishan Dharan - GitHub: [@Kishandharan](https://github.com/Kishandharan)
