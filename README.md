@@ -179,16 +179,16 @@ Before making any modifications:
                                                            
 Expected output: Hello Android                                                           
                                                            
-## Step 19:Step 9: Understanding the Application Goal
+## Step 19: Understanding the Application Goal
 
 The purpose of this application is to fetch trivia questions from an online API and display them in a scrollable list.
 
 The application will:
 
-Connect to the Open Trivia Database API
-Retrieve trivia questions
-Display questions and answers
-Automatically load data when the application starts 
+- Connect to the Open Trivia Database API.
+- Retrieve trivia questions.
+- Display questions and answers.
+- Automatically load data when the application starts. 
 
 ## Step 20: Understanding the API
 
@@ -198,15 +198,15 @@ Example API URL:
 
 https://opentdb.com/api.php?amount=10&category=18&type=boolean
 
-amount=10 → Retrieve 10 questions
-category=18 → Computer Science category
-type=boolean → True/False questions
+amount=10 → Retrieve 10 questions.
+category=18 → Computer Science category.
+type=boolean → True/False questions.
 
 ## Step 21: Enable Internet Permission
 
-Open Manifests,AndroidManifest.xml
+- Open Manifests,AndroidManifest.xml.
 
-Add the following permission:
+- Add the following permission:
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET">
@@ -214,7 +214,7 @@ Add the following permission:
 Android applications cannot access the internet unless this permission is declared.
                                                            
 ## Step 20: Add Required Dependencies
-Gradle Scripts, build.gradle.kts (Module:app)
+- Gradle Scripts, build.gradle.kts (Module:app)
 
 Add:
 ```kotlin
@@ -222,35 +222,35 @@ implementation("com.squareup.retrofit2:retrofit:2.11.0")
 implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
 ```
-Click Sync Now.                                      
+- Click Sync Now.                                      
                                                            
 ## Step 21: Understanding the Dependencies
-Retrofit
+- Retrofit.
 Used for making HTTP requests.
 
-Connects to the API
-Sends requests
+Connects to the API.
+Sends requests.
 Receives responses.
 
-Gson Converter
+- Gson Converter.
 Used for JSON parsing.
 
-Converts JSON into Kotlin objects
-Removes the need for manual parsing 
+Converts JSON into Kotlin objects.
+Removes the need for manual parsing. 
 
-ViewModel Compose
+- ViewModel Compose.
 Used for state management.
 
-Stores UI state
-Survives configuration changes
-Separates business logic from UI                                                  
+Stores UI state.
+Survives configuration changes.
+Separates business logic from UI.                                                  
                                                            
-## Step 22:Package Structure
+## Step 22: Package Structure
 
-data
-model
-network
-utils
+- data
+- model
+- network
+- utils
 
 These packages separate different responsibilities of the application.                                           
                                                            
@@ -259,10 +259,9 @@ These packages separate different responsibilities of the application.
 
 Right-click the package name.
 
-New, Package
+- New, Package.
 
-Create:
-model
+- Create model
 
 Stores data received from the API.
 
@@ -284,22 +283,23 @@ The API returns data similar to:
 ```
 Observe that the response contains:
 
+```text
 response_code
 results
-
+```
 Each result contains:
 
+```text
 question
 correct_answer
 incorrect_answers
-
+```
 
 ## Step 25: Create Trivia.kt
 
 Right-click Model package. 
 
-Create:
-Trivia.kt
+- Create Trivia.kt
 
 Add:
 
@@ -317,9 +317,9 @@ Represents a single trivia question.
 
 Each object of Trivia stores:
 
-One question
-One correct answer
-One or more incorrect answers
+One question.
+One correct answer.
+One or more incorrect answers.
 
 Example:
 
@@ -329,10 +329,9 @@ Incorrect Answers: False
 
 ## Step 27:  Create Response.kt
 
-Right-click the model package
+Right-click the model package.
 
-create:
-Response.kt
+- Create Response.kt
 
 Add:
 
@@ -356,13 +355,12 @@ The Response object contains a list of Trivia objects.
 
 Flow:
 
-API → Response → List of Trivia → UI
+API → Response → List of Trivia → UI.
 
 
 ## Step 28: Create the Network Package
 
-Create:
-network
+- Create network
 
 Purpose:
 
@@ -370,18 +368,19 @@ Contains files responsible for API communication.
 
 ## Step 29: Create MockApi.kt
 
-Inside network package create:
-MockApi.kt
+Inside network package, 
+- Create MockApi.kt
 
 Defines API endpoints.
 Retrofit uses this interface to understand:
-Which URL to call
-Which parameters to send
-Which object should be returned
+Which URL to call.
+Which parameters to send.
+Which object should be returned.
 
 ## Step 30: Add the GET Endpoint
 
 Inside MockApi.kt add:
+
 ```kotlin
 @GET("api.php")
 suspend fun trivia(
@@ -396,23 +395,24 @@ Requests trivia questions from the server.
 ## Step 31: Understanding Query Parameters
 
 The parameters sent to the API are:
-amount
+- amount
 Determines how many questions should be returned.
 
-category
-Determines the category of questions.
-Example: 18 → Computers
 
-type
+- category
+Determines the category of questions.
+Example: 18 → Computers.
+
+- type
 Determines the question type.
-Example: boolean → True/False questions
+Example: boolean → True/False questions.
 
 When these parameters are combined, Retrofit automatically generates the final URL and sends the request.
 
 ## Step 32: Create ApiClient.kt
 
-Inside the network package create:
-ApiClient.kt
+Inside the network package 
+- Create ApiClient.kt
 
 ApiClient is responsible for configuring Retrofit and creating an implementation of the MockApi interface.
 
@@ -436,7 +436,7 @@ object ApiClient {
 
 ## Step 33: Understanding ApiClient.kt code
 
-The base URL represents the common part of every API request.
+- The base URL represents the common part of every API request.
 Correct:
 https://opentdb.com/
 
@@ -445,7 +445,7 @@ https://opentdb.com/api.php?amount=10&category=18&type=boolean
 
 The remaining parameters will be supplied through Retrofit query parameters.
 
-GsonConverterFactory converts JSON into Kotlin objects.
+- GsonConverterFactory converts JSON into Kotlin objects.
 
 Without Gson:
 Manual JSON parsing would be required.
@@ -453,33 +453,31 @@ Manual JSON parsing would be required.
 ```kotlin
 val mockAPI: MockApi
 ```
-provides access to API endpoints defined in MockApi.
+- provides access to API endpoints defined in MockApi.
 
 This object will later be used by the repository layer.
 
 ## Step 34: Create Data Package
 
-Create:
-data
+- Create data
 
 Acts as a bridge between:
 
-ViewModel
-API Layer
+ViewModel and API Layer
 
 This keeps networking logic separate from UI logic.
 
 ## Step 35: Create TriviaPath.kt
 
-Inside the data package create:
-TriviaPath.kt
+Inside the data package
+- Create TriviaPath.kt
 
 Responsible for fetching trivia questions from the API.
 
 The ViewModel should not directly communicate with Retrofit.
 
 Instead:
-ViewModel → Repository → API
+ViewModel → Repository → API.
 
 Inside TriviaPath.kt add:
 
@@ -508,9 +506,8 @@ Allows coroutine support.
 
 ## Step 37: Create UIState.kt
 
-Inside ui.theme create:
-
-UIState.kt
+Inside ui.theme 
+- Create UIState.kt
 
 Stores all information required by the screen.
 
@@ -529,7 +526,7 @@ data class UIstate (
 
 ### Step 38: Understanding UIState.kt
 
-data class UIState stores:
+- Data class UIState stores:
 isLoading -> Indicates whether data is currently being downloaded.
 projects -> Stores the list of trivia questions.
 response_code -> Stores API response status.
@@ -537,23 +534,23 @@ errorMsg -> Stores error messages.
 
 Jetpack Compose works using state.
 
-Whenever UIState changes:
+- Whenever UIState changes:
 Compose automatically recomposes.
 The screen updates automatically.
 No manual refresh is required.
 
 ## Step 39: Create TriviaViewModel.kt
 
-Inside ui.theme create:
-TriviaViewModel.kt
+Inside ui.theme
+- Create TriviaViewModel.kt
 
 Acts as the business logic layer.
 
 Responsibilities:
-Request data from repository
-Handle exceptions
-Update UI state
-Communicate with UI
+Request data from repository.
+Handle exceptions.
+Update UI state.
+Communicate with UI.
 
 Inside TriviaViewModel.kt add:
 
@@ -592,7 +589,7 @@ class TriviaViewModel : ViewModel() {
 
 ## Step 40: Understanding TriviaViewModel.kt
 
-Make TriviaViewModel extend ViewModel
+- Make TriviaViewModel extend ViewModel.
 
 ```kotlin
 class TriviaViewModel : ViewModel()
@@ -605,7 +602,7 @@ Preserves data.
 Avoids unnecessary API calls.
 Step 39: Create Repository Object
 
-Inside TriviaViewModel create:
+- Inside TriviaViewModel create:
 ```kotlin
 val trivia = TriviaPath()
 ```
@@ -614,11 +611,11 @@ Allows the ViewModel to access repository functions.
 ```kotlin
 MutableStateFlow(UIState())
 ```
-Stores current screen state.
+- Stores current screen state.
 Whenever the state changes:
 Compose automatically updates the UI.
 
-Expose state using:
+- Expose state using:
 ```kotlin
 asStateFlow()
 ```
@@ -628,13 +625,13 @@ Prevents accidental modification from outside the ViewModel.
 ```kotlin
 fun triviaList()
 ```
-Responsible for:
-Starting loading
-Calling API
-Receiving results
-Updating UI
+- Responsible for:
+Starting loading.
+Calling API.
+Receiving results.
+Updating UI.
 
-Inside triviaList():
+- Inside triviaList():
 ```kotlin
 viewModelScope.launch
 ```
@@ -643,14 +640,14 @@ Benefits:
 Automatically cancelled when ViewModel is destroyed.
 Safe for API calls.
 
-Before calling the API:
+- Before calling the API:
 Update:
 ```kotlin
 isLoading = true
 ```
 Shows the loading indicator while data is downloading.
 
-Call:
+- Call:
 ```kotlin
 trivia.triviaFacts(
     amount = 10,
@@ -660,7 +657,7 @@ trivia.triviaFacts(
 ```
 Fetches ten computer science True/False questions.
 
-After receiving data:
+- After receiving data:
 Update:
 ```kotlin
 projects = response.results
@@ -668,16 +665,16 @@ projects = response.results
 Stores downloaded questions.
 The UI will automatically update.
 
-Wrap API calls inside:
+- Wrap API calls inside:
 try
 and
 catch
 Handles:
-Network failures
-Server issues
-Invalid responses
+Network failures.
+Server issues.
+Invalid responses.
 
-Inside catch block:
+- Inside catch block:
 Update:
 ```kotlin
 errorMsg = e.message
@@ -685,7 +682,7 @@ errorMsg = e.message
 Purpose:
 Displays meaningful errors to users.
 
-After success or failure:
+- After success or failure:
 Update:
 ```kotlin
 isLoading = false
@@ -694,17 +691,17 @@ Removes loading indicator.
 
 ## Step 41: Create MainScreen.kt
 
-Inside ui.theme create:
-MainScreen.kt
+Inside ui.theme 
+- Create MainScreen.kt
 
 MainScreen is responsible for displaying the user interface of the application.
 It acts as the presentation layer and observes data coming from the ViewModel.
 Responsibilities:
-Display title
-Display loading indicator
-Display errors
-Display trivia questions
-Display answers
+Display title.
+Display loading indicator.
+Display errors.
+Display trivia questions.
+Display answers.
 
 ## Step 42: Create MainScreen Composable Function
 Create:
@@ -732,7 +729,7 @@ Keeps UI synchronized with ViewModel
 ## Step 44: Understanding Why collectAsState() Is Needed
 
 The ViewModel exposes:
-StateFlow UIState
+StateFlow UIState.
 
 Compose cannot directly observe StateFlow.
 Therefore collectAsState() is required.
@@ -749,9 +746,9 @@ LaunchedEffect(Unit) {
 
 Automatically loads trivia questions when the screen opens.
 Without this:
-Screen opens
-No API request is made
-No questions appear
+Screen opens.
+No API request is made.
+No questions appear.
 
 ## Step 46: Understanding LaunchedEffect
 
@@ -759,6 +756,7 @@ LaunchedEffect runs a block of code when the composable enters the composition.
 Because Unit never changes,the API request runs only once.
 
 Execution Flow:
+```text
 Screen Opens
 ↓
 LaunchedEffect Executes
@@ -768,7 +766,7 @@ ViewModel Calls API
 Response Received
 ↓
 Questions Display
-
+```
 ## Step 47: Create Main Layout
 
 Use:
@@ -776,35 +774,35 @@ Column()
 
 Arranges UI elements vertically.
 The screen contains:
-Heading
-Result Count
-Loading Indicator
-Error Message
-Question List
+Heading.
+Result Count.
+Loading Indicator.
+Error Message.
+Question List.
 
 ## Step 48: Add Screen Heading
 
-Display Trivia Quiz List using Text()
+- Display Trivia Quiz List using Text()
 Provides context to the user regarding the application.
 
 Styling:
-HeadlineLarge typography
-Bold font weight
-Center aligned
+- HeadlineLarge typography.
+- Bold font weight.
+- Center aligned.
 
-Use Spacer() to add space before the next element.
+- Use Spacer() to add space before the next element.
 
 ## Step 49: Display Result Count
-Add another column within the parent column()
+- Add another column within the parent column()
 
 Show:
-Result Count: X
+- Result Count: X
 using Text()
 
 Displays the number of questions retrieved from the API.
 
 Example:
-Result Count: 10
+Result Count: 10.
 This confirms successful API retrieval.
 
 ## Step 50: Display Loading Indicator
@@ -827,9 +825,9 @@ uiState.errorMsg
 
 Shows error information if API calls fail.
 Examples:
-No internet connection
-Timeout
-Invalid response
+No internet connection.
+Timeout.
+Invalid response.
 
 Error messages are displayed in red color.
 
@@ -842,9 +840,9 @@ LazyColumn{}
 Displays multiple questions efficiently.
 
 Benefits:
-Better performance
-Loads items as needed
-Supports large datasets
+Better performance.
+Loads items as needed.
+Supports large datasets.
 
 ## Step 53: Iterate Through Questions
 Use:
@@ -864,13 +862,13 @@ Card()
 
 Provides visual separation between questions.
 Benefits:
-Improved readability
-Modern Material Design appearance
+Improved readability.
+Modern Material Design appearance.
 
 Card Features:
-Rounded corners
-Elevation
-Background color
+- Rounded corners
+- Elevation
+- Background color
 
 ## Step 55: Display Question Text
 
@@ -893,14 +891,13 @@ Examples:
 &quot;
 ```
 These should not be shown directly to users.
-To solve this problem create:
-
-utils package.
+To solve this problem
+- Create utils package.
 
 ## Step 57: Create HtmlExtensions.kt
 
-Inside utils create:
-HtmlExtensions.kt
+Inside utils 
+- Create HtmlExtensions.kt
 
 Add:
 ```kotlin
@@ -936,7 +933,7 @@ Linux' creator
 
 ## Step 59: Remove the Default Composable Function and Preview
 
-Open MainActivity.kt
+- Open MainActivity.kt
 
 When a new Jetpack Compose project is created, Android Studio generates a sample composable function and preview function.
 
@@ -960,8 +957,8 @@ fun GreetingPreview() {
 These functions were created only to demonstrate Jetpack Compose and are not required for the Trivia application.
 
 Delete:
-The default composable function (Greeting())
-The preview function (GreetingPreview())
+- The default composable function (Greeting()).
+- The preview function (GreetingPreview()).
 
 Removes unnecessary code.
 Keeps MainActivity focused on launching the actual application screen.
@@ -969,7 +966,7 @@ Prevents confusion when reading the code.
 
 ## Step 60: Connect MainScreen to MainActivityUpdate MainActivity.kt
 
-In MainActivity.kt
+In MainActivity.kt,
 
 Create the ViewModel:
 ```kotlin
