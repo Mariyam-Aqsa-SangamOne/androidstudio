@@ -10,7 +10,8 @@ Install Android Studio.
 Launch Android Studio.                                                                                                                                                                                 
 ## Step 4: Android Studio "New Project" "Empty Activity" "Next", Enter Project Details                                                           
 Project Name: TriviaApp                                                      
-Package Name: Use the automatically generated package name. You can change "example" to your organisation's name.                                           
+Package Name: Use the automatically generated package name. You can change "example" to your organisation's name.                     
+Save Location: Choose the appropriate directory you want to store this project inside to avoid moving folders later.                       
 Language: Kotlin                                                             
 Build Configuration Language: Kotlin DSL                                                             
 Minimum SDK: Select the default recommended SDK or API 24 and above.                                                           
@@ -204,12 +205,12 @@ type=boolean → True/False questions.
 
 ## Step 21: Enable Internet Permission
 
-- Open Manifests,AndroidManifest.xml.
+- Open Manifests,AndroidManifest.xml.(located in the left)
 
 - Add the following permission:
 
 ```xml
-<uses-permission android:name="android.permission.INTERNET">
+<uses-permission android:name="android.permission.INTERNET"/>
 ```                                                        
 Android applications cannot access the internet unless this permission is declared.
                                                            
@@ -257,7 +258,7 @@ These packages separate different responsibilities of the application.
 
 ## Step 23: Create the Model Package
 
-Right-click the package name.
+Right-click on parent package name(eg: com.example.triviapp).
 
 - New, Package.
 
@@ -382,12 +383,14 @@ Which object should be returned.
 Inside MockApi.kt add:
 
 ```kotlin
-@GET("api.php")
-suspend fun trivia(
-    @Query("amount") amount: Int,
-    @Query("category") category: Int,
-    @Query("type") type: String
-): Response
+interface MockApi {
+    @GET("api.php")
+    suspend fun trivia(
+        @Query("amount") amount : Int,
+        @Query("category") category : Int,
+        @Query("type") type : String,
+    ):Response
+}
 ```
 
 Requests trivia questions from the server.
@@ -397,7 +400,6 @@ Requests trivia questions from the server.
 The parameters sent to the API are:
 - amount
 Determines how many questions should be returned.
-
 
 - category
 Determines the category of questions.
@@ -432,7 +434,6 @@ object ApiClient {
     }
 }
 ```
-
 
 ## Step 33: Understanding ApiClient.kt code
 
