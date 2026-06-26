@@ -4,7 +4,7 @@ import com.sangamone.triviaapp.model.Response
 import retrofit2.http.Query
 
 interface MockApi {
-    @GET("api.php")
+    @GET("Programming")
     suspend fun trivia(
         @Query("amount") amount : Int,
         @Query("category") category : Int,
